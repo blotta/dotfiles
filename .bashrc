@@ -63,7 +63,14 @@ function parse_git_dirty {
 	fi
 }
 
+# prints vertical split division
+function tdivstr(){
+    dc=${1:-'='}
+    printf "${dc}%.0s" $(seq 1 $COLUMNS)
+}
+
 export PS1="\n\[$(tput sgr0)\]\[\033[38;5;2m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;3m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;6m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
+
 
 DKPSFMT="\nName\t{{.Names}}\nID\t{{.ID}}\nImage\t{{.Image}}\nStatus\t{{.Status}}\nPorts\t{{.Ports}}\nCommand\t{{.Command}}"
 
@@ -72,6 +79,8 @@ alias dnfu='sudo dnf update'
 alias dnfi='sudo dnf install'
 alias dnfs='dnf search'
 
+alias la='ls -a'
+alias lla='ll -a'
 
 alias dkps='docker ps'
 alias dkpsa='dkps -a'
@@ -96,3 +105,5 @@ alias dkcmpb='dkcmp build'
 alias dkcmpup='dkcmp up'
 
 alias jj='journalctl'
+alias sctl='systemctl'
+alias sctls='sctl status'
