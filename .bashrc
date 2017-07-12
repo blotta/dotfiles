@@ -65,7 +65,34 @@ function parse_git_dirty {
 
 export PS1="\n\[$(tput sgr0)\]\[\033[38;5;2m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;3m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;6m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
 
-# Aliases
+DKPSFMT="\nName\t{{.Names}}\nID\t{{.ID}}\nImage\t{{.Image}}\nStatus\t{{.Status}}\nPorts\t{{.Ports}}\nCommand\t{{.Command}}"
+
+#Aliases
+alias dnfu='sudo dnf update'
 alias dnfi='sudo dnf install'
 alias dnfs='dnf search'
-alias dnfu='sudo dnf update'
+
+
+alias dkps='docker ps'
+alias dkpsa='dkps -a'
+alias dkpsaq='dkpsa -q'
+alias dkpsfmt="dkps --format=\"$DKPSFMT\""
+alias dkpsafmt="dkpsa --format=\"$DKPSFMT\""
+
+alias dkvl='docker volume ls'
+alias dkvlq='dkvl -q'
+alias dkvr='docker volume rm'
+alias dkvi='docker volume inspect'
+
+alias dki='docker inspect'
+
+alias dkn='docker network'
+alias dkni='dkn inspect'
+alias dknr='dkn rm'
+alias dknl='dkn ls'
+
+alias dkcmp='docker-compose'
+alias dkcmpb='dkcmp build'
+alias dkcmpup='dkcmp up'
+
+alias jj='journalctl'
