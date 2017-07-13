@@ -204,20 +204,25 @@ let g:syntastic_check_on_wq = 0
 
 " PEP8 indentention when python {{{
 autocmd BufNewFile,BufRead *.py
-      \ set tabstop=4
-      \ softtabstop=4
-      \ shiftwidth=4
-      \ textwidth=79
-      \ expandtab
-      \ autoindent
-      \ fileformat=unix
+    \ set tabstop=4
+    \ softtabstop=4
+    \ shiftwidth=4
+    \ textwidth=79
+    \ expandtab
+    \ autoindent
+    \ fileformat=unix
 " }}}
 
 " for full stack dev {{{
 autocmd BufNewFile,BufRead *.js, *.html, *.css
-      \ set tabstop=2
-      \ softtabstop=2
-      \ shiftwidth=2
+    \ set tabstop=2
+    \ softtabstop=2
+    \ shiftwidth=2
 " }}}
 
+" Markdown {{{
+autocmd! BufRead,BufNewFile *.markdown, *.md
+    \ set filetype=mkd
+
+" }}}
 " }}}
