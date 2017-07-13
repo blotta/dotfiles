@@ -71,8 +71,11 @@ function tdivstr(){
 
 export PS1="\n\[$(tput sgr0)\]\[\033[38;5;2m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;3m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;6m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
 
-
-DKPSFMT="\nName\t{{.Names}}\nID\t{{.ID}}\nImage\t{{.Image}}\nStatus\t{{.Status}}\nPorts\t{{.Ports}}\nCommand\t{{.Command}}"
+function dkfmt(){
+    
+    DKPSFMT="$(tdivstr)\n\tName\t{{.Names}}\n\tID\t{{.ID}}\n\tImage\t{{.Image}}\n\tStatus\t{{.Status}}\n\tPorts\t{{.Ports}}\n\tCommand\t{{.Command}}"
+    printf "%s" $DKPSFMT
+}
 
 #Aliases
 alias dnfu='sudo dnf update'
@@ -85,8 +88,8 @@ alias lla='ll -a'
 alias dkps='docker ps'
 alias dkpsa='dkps -a'
 alias dkpsaq='dkpsa -q'
-alias dkpsfmt="dkps --format=\"$DKPSFMT\""
-alias dkpsafmt="dkpsa --format=\"$DKPSFMT\""
+alias dkpsfmt="dkps --format=\"$(dkfmt)\" ; tdivstr"
+alias dkpsafmt="dkpsa --format=\"$(dkfmt)\" ; tdivstr"
 
 alias dkvl='docker volume ls'
 alias dkvlq='dkvl -q'
