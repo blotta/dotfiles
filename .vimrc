@@ -200,7 +200,28 @@ let g:syntastic_check_on_wq = 0
 
 " }}}
 
+" Mappings {{{
+
+"Standard system Ctrl-c Ctrl-v (needs to be compiled with clipboard)
+" Copy
+vmap <C-c> "+y
+"Paste
+imap <C-v> <C-r>+
+nmap <C-v> a<C-v><ESC>
+" }}}
+
 " Commands {{{
+
+" When editing vimrc {{{
+" reading
+autocmd! BufReadPost ~/.vimrc
+    \ setlocal foldmethod=marker
+
+"writing
+autocmd! BufWritePost .vimrc
+    \ source ~/.vimrc
+    \ | echo "Configuration Reloaded"
+" }}}
 
 " PEP8 indentention when python {{{
 autocmd BufNewFile,BufRead *.py
