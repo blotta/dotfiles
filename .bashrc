@@ -85,8 +85,8 @@ alias lla='ll -a'
 alias dkps='docker ps'
 alias dkpsa='dkps -a'
 alias dkpsaq='dkpsa -q'
-alias dkpsfmt="dkps --format=\"$DKPSFMT\""
-alias dkpsafmt="dkpsa --format=\"$DKPSFMT\""
+alias dkpsfmt="dkps --format=\"$(tdivstr)$DKPSFMT\"; tdivstr"
+alias dkpsafmt="dkpsa --format=\"$(tdivstr)$DKPSFMT\"; tdivstr"
 
 alias dkvl='docker volume ls'
 alias dkvlq='dkvl -q'
