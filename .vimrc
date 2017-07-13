@@ -200,24 +200,50 @@ let g:syntastic_check_on_wq = 0
 
 " }}}
 
+" Mappings {{{
+
+"Standard system Ctrl-c Ctrl-v (needs to be compiled with clipboard)
+" Copy
+vmap <C-c> "+y
+"Paste
+imap <C-v> <C-r>+
+nmap <C-v> a<C-v><ESC>
+" }}}
+
 " Commands {{{
+
+" When editing vimrc {{{
+" reading
+autocmd! BufReadPost ~/.vimrc
+    \ setlocal foldmethod=marker
+
+"writing
+autocmd! BufWritePost .vimrc
+    \ source ~/.vimrc
+    \ | echo "Configuration Reloaded"
+" }}}
 
 " PEP8 indentention when python {{{
 autocmd BufNewFile,BufRead *.py
-      \ set tabstop=4
-      \ softtabstop=4
-      \ shiftwidth=4
-      \ textwidth=79
-      \ expandtab
-      \ autoindent
-      \ fileformat=unix
+    \ set tabstop=4
+    \ softtabstop=4
+    \ shiftwidth=4
+    \ textwidth=79
+    \ expandtab
+    \ autoindent
+    \ fileformat=unix
 " }}}
 
 " for full stack dev {{{
 autocmd BufNewFile,BufRead *.js, *.html, *.css
-      \ set tabstop=2
-      \ softtabstop=2
-      \ shiftwidth=2
+    \ set tabstop=2
+    \ softtabstop=2
+    \ shiftwidth=2
 " }}}
 
+" Markdown {{{
+autocmd! BufRead,BufNewFile *.markdown, *.md
+    \ set filetype=mkd
+
+" }}}
 " }}}
