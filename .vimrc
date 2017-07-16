@@ -207,7 +207,6 @@ let g:syntastic_check_on_wq = 0
 vmap <C-c> "+y
 "Paste
 imap <C-v> <C-r>+
-nmap <C-v> a<C-v><ESC>
 " }}}
 
 " Commands {{{
