@@ -229,5 +229,9 @@ alias dkcmpb='dkcmp build'
 alias dkcmpup='dkcmp up'
 
 alias jj='journalctl'
-alias sctl='systemctl'
-alias sctls='sctl status'
+
+alias SS='systemctl'
+alias SSs='systemctl status'
+alias SSstart='sudo systemctl start'
+alias SSstop='sudo systemctl stop'
+alias SSr='sudo systemctl restart'
