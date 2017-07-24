@@ -206,6 +206,8 @@ alias dnfu='sudo dnf update'
 alias dnfi='sudo dnf install'
 alias dnfs='dnf search'
 
+alias doihave='rpm -qa | grep'
+
 alias la='ls -a'
 alias lla='ll -a'
 
