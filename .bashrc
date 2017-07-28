@@ -188,16 +188,14 @@ function parse_git_dirty {
 # prints vertical split division
 function tdivstr(){
     dc=${1:-'='}
-    printf "${dc}%.0s" $(seq 1 $COLUMNS)
+    #[ ${#dc} -eq 1 ] && col=1 ||
+    cols=$(( $COLUMNS / ${#dc} ))
+    printf "${dc}%.0s" $(seq 1 $cols)
 }
 
 export PS1="\n\[$(tput sgr0)\]\[\033[38;5;2m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;3m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;6m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
 
-function dkfmt(){
-    
-    DKPSFMT="$(tdivstr)\n\tName\t{{.Names}}\n\tID\t{{.ID}}\n\tImage\t{{.Image}}\n\tStatus\t{{.Status}}\n\tPorts\t{{.Ports}}\n\tCommand\t{{.Command}}"
-    printf "%s" $DKPSFMT
-}
+DKPSFMT="\n\n\tName\t{{.Names}}\n\tID\t{{.ID}}\n\tImage\t{{.Image}}\n\tStatus\t{{.Status}}\n\tPorts\t{{.Ports}}\n\tCommand\t{{.Command}}"
 
 ## Aliases ##
 #############
@@ -214,8 +212,8 @@ alias lla='ll -a'
 alias dkps='docker ps'
 alias dkpsa='dkps -a'
 alias dkpsaq='dkpsa -q'
-alias dkpsfmt="dkps --format=\"$(dkfmt)\" ; tdivstr"
-alias dkpsafmt="dkpsa --format=\"$(dkfmt)\" ; tdivstr"
+alias dkpsfmt="dkps --format=\"$(echo $DKPSFMT|sed 's/^/`tdivstr`/')\" ; tdivstr _"
+alias dkpsafmt="dkpsa --format=\"$(echo $DKPSFMT|sed 's/^/`tdivstr _`/')\" ; tdivstr _"
 
 alias dkvl='docker volume ls'
 alias dkvlq='dkvl -q'
