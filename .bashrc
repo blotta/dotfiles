@@ -5,13 +5,13 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
 
 # User specific aliases and functions
 
-# Colors #
-##########
+
+# Functions #
+#############
+
 function getColorEsc(){
     declare -A fg
     declare -A bg
@@ -27,40 +27,15 @@ function getColorEsc(){
     local OPTIND; local OPTARG
     while getopts :f:b:osiul opt; do
         case $opt in
-            f)
-                local fgcname=$OPTARG
-                ;;
-            b)
-                local bgcname=$OPTARG
-                ;;
-            o)
-                #Bold
-                local bold='true'
-                ;;
-            s)
-                #Shade/Silent
-                local sil='true'
-                ;;
-            i)
-                #italic
-                local italic='true'
-                ;;
-            u)
-                #Underline
-                local underline='true'
-                ;;
-            l)
-                #Highlight
-                local highlight='true'
-                ;;
-            \?)
-                echo "Uknown option -$OPTARG" >&2
-                return 1
-                ;;
-            :)
-                echo "Option -$OPTARG requires argument" >&2
-                return 1
-                ;;
+            f) local fgcname=$OPTARG ;;
+            b) local bgcname=$OPTARG ;;
+            o) local bold='true' ;; #Bold
+            s) local sil='true' ;; #Shade/Silent
+            i) local italic='true' ;; #Italic
+            u) local underline='true' ;; # Underline
+            l) local highlight='true' ;; #Highlight
+            \?) echo "Uknown option -$OPTARG" >&2 ; return 1 ;;
+            :) echo "Option -$OPTARG requires argument" >&2 ; return 1 ;;
         esac
     done
 
@@ -79,11 +54,11 @@ function getColorEsc(){
 
     #Options
     local options=''
-    [ "$bold" == 'true' ] && options="$options"'\E[1m'
-    [ "$sil" == 'true' ] && options="$options"'\E[2m'
-    [ "$italic" == 'true' ] && options="$options"'\E[3m'
-    [ "$underline" == 'true' ] && options="$options"'\E[4m'
-    [ "$highlight" == 'true' ] && options="$options"'\E[7m'
+    [ "$bold" == 'true' ] && options+='\E[1m'
+    [ "$sil" == 'true' ] && options+='\E[2m'
+    [ "$italic" == 'true' ] && options+='\E[3m'
+    [ "$underline" == 'true' ] && options+='\E[4m'
+    [ "$highlight" == 'true' ] && options+='\E[7m'
 
     color_esc="${f_esc}${b_esc}${options}"
 
@@ -96,27 +71,15 @@ function color_echo(){
     local OPTIND; local OPTARG; local options=''
     while getopts :f:b:osiulm: opt; do
         case $opt in
-            f)
-                local fgcname=$OPTARG
-                ;;
-            b)
-                local bgcname=$OPTARG
-                ;;
+            f) local fgcname=$OPTARG ;;
+            b) local bgcname=$OPTARG ;;
             [osiul])
                 opindex=$(( $OPTIND - 1 ))
                 options="$options ${!opindex}"
                 ;;
-            m)
-                local msg="$OPTARG"
-                ;;
-            \?)
-                echo "Uknown option -$OPTARG" >&2
-                return 1
-                ;;
-            :)
-                echo "Option -$OPTARG requires argument" >&2
-                return 1
-                ;;
+            m) local msg="$OPTARG" ;;
+            \?) echo "Uknown option -$OPTARG" >&2 ; return 1 ;;
+            :)  echo "Option -$OPTARG requires argument" >&2 ; return 1 ;;
         esac
     done
 
@@ -130,6 +93,65 @@ function color_echo(){
     echo -e "${esc}${msg}\E[0m"
 
     return 0
+}
+
+#load python venv based on dir name
+function venv(){
+
+    [ -z "$PYENVS" ] &&
+        color_echo -f red -o -m "No Virtualenv path defined" >&2 && return 3
+    local create
+    local OPTIND; local OPTARG
+    while getopts ":chli:" opt; do
+        case $opt in
+        h)
+            cat <<EOU
+    Usage: $FUNCNAME [OPTIONS] <virtualenv>
+        -h : Display help and exit
+        -c : Create venv if it doesn't exist
+        -l : List venvs and exit
+        -i : Tries to install comma-separated items on venv with 'pip'
+EOU
+            return 0 ;;
+        c) create='yes' ;;
+        l)
+            for e in $(ls -d $PYENVS/*); do
+                [ -d "$e" ] && echo $(basename $e)
+            done
+            return 0
+            ;;
+        i)
+            local install_list=($(echo $OPTARG | sed 's/,/ /g'))
+            ;;
+        \?) echo "Invalid option: -$OPTARG" >&2 ; return 1 ;;
+        :)echo "Option -$OPTARG requires an argument." >&2 ; return 1 ;;
+        esac
+    done
+    shift $((OPTIND - 1))
+
+    [ -z "$1" ] && color_echo -f red -o -m "Specify venv dir" >&2 && return 1
+    local vdir="${PYENVS}/$1"
+    if [ "$create" == 'yes' ] ; then
+        if [ -d $vdir ]; then
+            color_echo -f blue -o -m "Virtualenv '$1' already exists" >&2
+        else
+            color_echo -f green -o -m "Creating '$1' virtualenv" >&2
+            virtualenv $vdir
+        fi
+    fi
+
+    if [ -d $vdir ]; then
+        color_echo -f green -o -m "Sourcing '$1' virtualenv" >&2
+        source $vdir/bin/activate
+        echo "packages: ${install_list[@]} n: ${#install_list[@]}"
+        if [[ $(which python) =~ $PYENVS ]] && [ ${#install_list[@]} -gt 0 ]; then
+            color_echo -f green -o -m "Installing packages ${install_list[*]}"
+            pip install ${install_list[@]}
+        fi
+    else
+        color_echo -f red -o -m "Virtualenv '$1' does not exist" >&2
+    fi
+
 }
 
 #start tune
@@ -193,9 +215,14 @@ function tdivstr(){
     printf "${dc}%.0s" $(seq 1 $cols)
 }
 
+# Environmental variables #
+###########################
 export PS1="\n\[$(tput sgr0)\]\[\033[38;5;2m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;3m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;6m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
 
 DKPSFMT="\n\n\tName\t{{.Names}}\n\tID\t{{.ID}}\n\tImage\t{{.Image}}\n\tStatus\t{{.Status}}\n\tPorts\t{{.Ports}}\n\tCommand\t{{.Command}}"
+
+export PYENVS="${HOME}/devel/python/Environments"
+
 
 ## Aliases ##
 #############
@@ -235,6 +262,6 @@ alias jj='journalctl'
 
 alias SS='systemctl'
 alias SSs='systemctl status'
-alias SSstart='sudo systemctl start'
-alias SSstop='sudo systemctl stop'
+alias SSa='sudo systemctl start'
+alias SSo='sudo systemctl stop'
 alias SSr='sudo systemctl restart'
