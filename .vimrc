@@ -102,7 +102,7 @@ set showmatch
 " let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " highlight column 80
-autocmd BufWinEnter * highlight ColorColumn ctermbg=lightgray
+autocmd BufWinEnter * highlight ColorColumn ctermbg=gray
 set colorcolumn=81
 
 " }}}
@@ -209,13 +209,18 @@ let g:syntastic_python_checkers = ['flake8']
 vmap <C-c> "+y
 "Paste
 imap <C-v> <C-r>+
+
+" Save file with F2
+nmap <F2> :w<Cr>
+imap <F2> <ESC>:w<CR>i
+
 " }}}
 
 " Commands {{{
 
 " When editing vimrc {{{
 " reading
-autocmd! BufReadPost ~/.vimrc
+autocmd! BufReadPost .vimrc
     \ setlocal foldmethod=marker
 
 "writing
@@ -242,9 +247,23 @@ autocmd BufNewFile,BufRead *.js, *.html, *.css
     \ shiftwidth=2
 " }}}
 
+" C programming {{{
+augroup c_settings *.c" {
+    autocmd!
+    autocmd BufNewFile,BufRead *.c, *.cpp, *.h
+        \ set tabstop=4
+        \ softtabstop=4
+        \ shiftwidth=4
+        \ noexpandtab
+    autocmd BufWrite *.c :echom "Writing C file"
+augroup END
+"}
+" }}}
+
 " Markdown {{{
 autocmd! BufRead,BufNewFile *.markdown, *.md
     \ set filetype=mkd
+    \ set cc=
 
 " }}}
 " }}}
