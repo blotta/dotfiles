@@ -265,3 +265,6 @@ alias SSs='systemctl status'
 alias SSa='sudo systemctl start'
 alias SSo='sudo systemctl stop'
 alias SSr='sudo systemctl restart'
+
+alias G='git status'
+alias Gd='git diff'
