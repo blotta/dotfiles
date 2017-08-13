@@ -154,6 +154,8 @@ EOU
 
 }
 
+
+
 #start tune
 #play -q "|sox -n -p synth 0.13 sin 200 delay 0.5" "|sox -n -p synth 0.13 sin 250" "|sox -n -p synth 0.13 sin 300" "|sox -n -p synth 0.13 sin 400" "|sox -n -p synth 0.13 sin 300" "|sox -n -p synth 0.13 sin 250" "|sox -n -p synth 0.4 sin 200" &
  
@@ -218,6 +220,7 @@ function tdivstr(){
 # Environmental variables #
 ###########################
 export PS1="\n\[$(tput sgr0)\]\[\033[38;5;2m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;3m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;6m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
+export EDITOR="vim"
 
 DKPSFMT="\n\n\tName\t{{.Names}}\n\tID\t{{.ID}}\n\tImage\t{{.Image}}\n\tStatus\t{{.Status}}\n\tPorts\t{{.Ports}}\n\tCommand\t{{.Command}}"
 
@@ -268,3 +271,14 @@ alias SSr='sudo systemctl restart'
 
 alias G='git status'
 alias Gd='git diff'
+
+alias sbrc='source ~/.bashrc'
+
+
+alias mypubip='dig +short myip.opendns.com @resolver1.opendns.com'
+
+# X Settings
+##############
+# If on X and DE or WM doesn't easily support keyboard layout switch
+# setxkbmap -model logitech_g15 -layout us,br -variant ,abnt2 -option grp:alt_shift_toggle
+
