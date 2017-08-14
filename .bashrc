@@ -211,7 +211,7 @@ function parse_git_dirty {
 function tdivstr(){
     dc=${1:-'='}
     #[ ${#dc} -eq 1 ] && col=1 ||
-    cols=$(( $COLUMNS / ${#dc} ))
+    cols=$(( $(tput cols) / ${#dc} ))
     printf "${dc}%.0s" $(seq 1 $cols)
 }
 
