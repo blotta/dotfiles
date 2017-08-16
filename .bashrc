@@ -106,11 +106,15 @@ function venv(){
         case $opt in
         h)
             cat <<EOU
+
     Usage: $FUNCNAME [OPTIONS] <virtualenv>
         -h : Display help and exit
         -c : Create venv if it doesn't exist
         -l : List venvs and exit
         -i : Tries to install comma-separated items on venv with 'pip'
+
+    Example: PYENVS=~/pyenvs venv -c -i pkg1,pkg2 envname
+
 EOU
             return 0 ;;
         c) create='yes' ;;
