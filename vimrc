@@ -107,11 +107,6 @@ set colorcolumn=81
 
 " }}}
 
-" Theme {{{
-
-colorscheme zenburn
-" }}}
-
 " Test from YT video {{{
 
 " enable syntax and plugins (builtin netrw)
@@ -200,6 +195,11 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 " }}}
 
+" }}}
+
+" Theme {{{
+
+colorscheme gruvbox
 " }}}
 
 " Mappings {{{
