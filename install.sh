@@ -33,6 +33,8 @@ plugin_clone["vim-commentary"]='git://github.com/tpope/vim-commentary.git'
 plugin_clone["vim-surround"]='git://github.com/tpope/vim-surround.git'
 plugin_clone["YouCompleteMe"]='https://github.com/Valloric/YouCompleteMe.git'
 
+plugin_clone["zenburn"]='https://github.com/jnurmine/Zenburn.git'
+plugin_clone["badwolf"]='https://github.com/sjl/badwolf.git'
 plugin_clone["gruvbox"]='https://github.com/morhetz/gruvbox.git'
 
 mkdir -p $HOME/.vim/{autoload,bundle,colors}
