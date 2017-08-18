@@ -54,7 +54,7 @@ set number
 set list listchars=tab:\ \ ,trail:·
 
 " no delay when pressing O (O as in oil)
-set timeout timeoutlen=1000 ttimeoutlen=100
+set timeout timeoutlen=1000 ttimeoutlen=50
 
 " Always show status bar
 set laststatus=2
@@ -198,10 +198,15 @@ let g:syntastic_python_checkers = ['flake8']
 " }}}
 
 " Theme {{{
-
-colorscheme gruvbox
+if filereadable(expand("$HOME/.vim/bundle/gruvbox/colors/gruvbox.vim"))
+    colorscheme gruvbox
+else
+    colorscheme desert
+endif
 set background=dark
-let g:gruvbox_contrast_dark = 'soft'
+if g:colors_name == 'gruvbox'
+    let g:gruvbox_contrast_dark = 'soft'
+endif
 " }}}
 
 " Mappings {{{
