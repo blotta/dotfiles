@@ -44,13 +44,12 @@ if [ ! -f $HOME/.vim/autoload/pathogen.vim ]; then
 fi
 
 # Plugins
-cd $HOME/.vim/bundle
 echo "Checking plugins"
-for k in ${plugin_clone[@]}; do
+for k in ${!plugin_clone[@]}; do
     echo -n "    $k .."
-    if [ ! -d "$k" ]; then
+    if [ ! -d "$HOME/.vim/bundle/$k" ]; then
         echo "Installing"
-        git clone ${plugin_clone[$k]}
+        git clone ${plugin_clone[$k]} $HOME/.vim/bundle/$k
     else
         echo "OK"
     fi
