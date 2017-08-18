@@ -24,7 +24,7 @@ fi
 
 vim_plugins=( 'nerdtree' 'syntastic' 'vim-commentary' 'vim-surround' 'YouCompleteMe')
 
-vim_themes=('zenburn')
+vim_themes=('zenburn' 'badwolf' 'gruvbox')
 
 declare -A plugin_clone
 plugin_clone["nerdtree"]='https://github.com/scrooloose/nerdtree.git'
@@ -33,6 +33,7 @@ plugin_clone["vim-commentary"]='git://github.com/tpope/vim-commentary.git'
 plugin_clone["vim-surround"]='git://github.com/tpope/vim-surround.git'
 plugin_clone["YouCompleteMe"]='https://github.com/Valloric/YouCompleteMe.git'
 
+plugin_clone["gruvbox"]='https://github.com/morhetz/gruvbox.git'
 
 mkdir -p $HOME/.vim/{autoload,bundle,colors}
 
@@ -44,4 +45,15 @@ fi
 
 # Plugins
 cd $HOME/.vim/bundle
+echo "Checking plugins"
+for k in ${plugin_clone[@]}; do
+    echo -n "    $k .."
+    if [ ! -d "$k" ]; then
+        echo "Installing"
+        git clone ${plugin_clone[$k]}
+    else
+        echo "OK"
+    fi
+done
+
 
