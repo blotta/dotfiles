@@ -238,7 +238,7 @@ autocmd! BufWritePost .vimrc
 
 " PEP8 indentention when python {{{
 autocmd BufNewFile,BufRead *.py
-    \ set tabstop=4
+    \ setlocal tabstop=4
     \ softtabstop=4
     \ shiftwidth=4
     \ textwidth=79
@@ -248,29 +248,26 @@ autocmd BufNewFile,BufRead *.py
 " }}}
 
 " for full stack dev {{{
-autocmd BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2
+autocmd BufNewFile,BufRead *.{js,html,css}
+    \ setlocal tabstop=2
     \ softtabstop=2
     \ shiftwidth=2
 " }}}
 
 " C programming {{{
-augroup c_settings *.c" {
-    autocmd!
-    autocmd BufNewFile,BufRead *.c, *.cpp, *.h
-        \ set tabstop=4
-        \ softtabstop=4
-        \ shiftwidth=4
-        \ noexpandtab
-    autocmd BufWrite *.c :echom "Writing C file"
-augroup END
+autocmd BufNewFile,BufRead *.{c,cpp,h}
+    \ setlocal tabstop=4
+    \ softtabstop=4
+    \ shiftwidth=4
+    \ noexpandtab
+autocmd BufWrite *.c :echom "Writing C file"
 "}
 " }}}
 
 " Markdown {{{
-autocmd! BufRead,BufNewFile *.markdown, *.md
-    \ set filetype=mkd
-    \ set cc=
+autocmd! BufRead,BufNewFile *.{markdown,md}
+    \ setlocal filetype=markdown
+    \ cc=
 
 " }}}
 " }}}
