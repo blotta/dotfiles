@@ -240,6 +240,8 @@ alias dnfs='dnf search'
 
 alias doihave='rpm -qa | grep'
 
+alias ls='ls --color'
+alias ll='ls -l'
 alias la='ls -a'
 alias lla='ll -a'
 
