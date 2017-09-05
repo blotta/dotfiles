@@ -147,14 +147,16 @@ filetype plugin indent on
 " }}}
 
 " NERDTree {{{
-" https://github.com/scrooloose/nerdtree
-" map to ctrl+n
-map <C-n> :NERDTreeToggle<CR>
-" close vim if NERDTree is only window open
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && \
-" b:NERDTree.isTabTree()) | q | endif
-" Open NERDTree when vim opens (with argument)
-" autocmd vimenter * NERDTree
+if filereadable(expand("$HOME/.vim/bundle/nedtree/plugin/NERD_tree.vim"))
+    " https://github.com/scrooloose/nerdtree
+    " map to ctrl+n
+    map <C-n> :NERDTreeToggle<CR>
+    " close vim if NERDTree is only window open
+    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && \
+    " b:NERDTree.isTabTree()) | q | endif
+    " Open NERDTree when vim opens (with argument)
+    " autocmd vimenter * NERDTree
+endif
 " }}}
 
 " vim-surround {{{
