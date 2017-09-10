@@ -147,7 +147,7 @@ filetype plugin indent on
 " }}}
 
 " NERDTree {{{
-if filereadable(expand("$HOME/.vim/bundle/nedtree/plugin/NERD_tree.vim"))
+if filereadable(expand("$HOME/.vim/bundle/nerdtree/plugin/NERD_tree.vim"))
     " https://github.com/scrooloose/nerdtree
     " map to ctrl+n
     map <C-n> :NERDTreeToggle<CR>
