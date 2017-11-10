@@ -102,7 +102,7 @@ set showmatch
 " let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " highlight column 80
-autocmd BufWinEnter * highlight ColorColumn ctermbg=gray
+autocmd BufWinEnter * highlight ColorColumn ctermbg=black
 set colorcolumn=81
 
 " }}}
