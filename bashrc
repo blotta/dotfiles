@@ -120,7 +120,7 @@ EOU
         c) create='yes' ;;
         l)
             for e in $(ls -d $PYENVS/*); do
-                [ -d "$e" ] && echo $(basename $e)
+                echo $(basename $e)
             done
             return 0
             ;;
@@ -133,6 +133,17 @@ EOU
     done
     shift $((OPTIND - 1))
 
+    local venvbin
+    if which virtualenv &>/dev/null; then
+        venvbin='virtualenv'
+    elif which virtualenv-3 &>/dev/null; then
+        venvbin='virtualenv-3'
+    else
+        echo "Virtualenv not installed" >&2
+        return 1
+    fi
+
+
     [ -z "$1" ] && color_echo -f red -o -m "Specify venv dir" >&2 && return 1
     local vdir="${PYENVS}/$1"
     if [ "$create" == 'yes' ] ; then
@@ -140,7 +151,7 @@ EOU
             color_echo -f blue -o -m "Virtualenv '$1' already exists" >&2
         else
             color_echo -f green -o -m "Creating '$1' virtualenv" >&2
-            virtualenv $vdir
+            $venvbin $vdir
         fi
     fi
 
@@ -252,6 +263,7 @@ alias dkpsa='dkps -a'
 alias dkpsaq='dkpsa -q'
 alias dkpsfmt="dkps --format=\"$(echo $DKPSFMT|sed 's/^/`tdivstr`/')\" ; tdivstr _"
 alias dkpsafmt="dkpsa --format=\"$(echo $DKPSFMT|sed 's/^/`tdivstr _`/')\" ; tdivstr _"
+alias dkrd='docker rmi $(docker images -q -f dangling=true) 2>/dev/null'
 
 alias dkvl='docker volume ls'
 alias dkvlq='dkvl -q'
