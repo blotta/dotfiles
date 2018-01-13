@@ -239,6 +239,10 @@ export PS1="\n\[$(tput sgr0)\]\[\e[38;2;175;175;0;1m\]\u \[$(tput sgr0)\]\[\e[38
 # Background: #262626
 export EDITOR="vim"
 
+if ! grep "${HOME}/bin" <(echo $PATH) &>/dev/null; then
+    export PATH="${HOME}/bin:${PATH}"
+fi
+
 DKPSFMT="\n\n\tName\t{{.Names}}\n\tID\t{{.ID}}\n\tImage\t{{.Image}}\n\tStatus\t{{.Status}}\n\tPorts\t{{.Ports}}\n\tCommand\t{{.Command}}"
 
 export PYENVS="${HOME}/devel/python/Environments"
