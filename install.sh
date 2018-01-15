@@ -7,7 +7,7 @@
 # Place rc files
 DOTFILEPATH=$(dirname $(realpath $0))
 
-for c in 'bashrc' 'vimrc' 'tmux.conf'; do
+for c in 'bashrc' 'vimrc' 'tmux.conf' 'emacs'; do
     [ -L ~/.${c} ] && unlink ~/.${c}
     [ -f ~/.${c} ] && mv ~/.${c} ~/.${c}.bak
 
