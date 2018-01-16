@@ -169,7 +169,10 @@ EOU
 
 }
 
+function tempsscert(){
 
+    openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out cert.pem $@
+}
 
 #start tune
 #play -q "|sox -n -p synth 0.13 sin 200 delay 0.5" "|sox -n -p synth 0.13 sin 250" "|sox -n -p synth 0.13 sin 300" "|sox -n -p synth 0.13 sin 400" "|sox -n -p synth 0.13 sin 300" "|sox -n -p synth 0.13 sin 250" "|sox -n -p synth 0.4 sin 200" &
