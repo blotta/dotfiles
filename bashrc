@@ -242,9 +242,25 @@ export PS1="\n\[$(tput sgr0)\]\[\e[38;2;175;175;0;1m\]\u \[$(tput sgr0)\]\[\e[38
 # Background: #262626
 export EDITOR="vim"
 
+# Golang env
+if [ -z "$GOPATH" ]; then
+    export GOPATH="${HOME}/devel/golang"
+    mkdir -p $GOPATH
+fi
+
+# Golang bin path
+if ! grep "${GOPATH}/bin" <(echo $PATH) &>/dev/null; then
+    export PATH="${PATH}:${GOPATH}/bin"
+fi
+
+# My Scripts
 if ! grep "${HOME}/bin" <(echo $PATH) &>/dev/null; then
     export PATH="${HOME}/bin:${PATH}"
 fi
+
+
+
+
 
 DKPSFMT="\n\n\tName\t{{.Names}}\n\tID\t{{.ID}}\n\tImage\t{{.Image}}\n\tStatus\t{{.Status}}\n\tPorts\t{{.Ports}}\n\tCommand\t{{.Command}}"
 
@@ -309,3 +325,9 @@ alias mypubip='dig +short myip.opendns.com @resolver1.opendns.com'
 # If on X and DE or WM doesn't easily support keyboard layout switch
 # setxkbmap -model logitech_g15 -layout us,br -variant ,abnt2 -option grp:alt_shift_toggle
 
+
+PATH="/home/lblotta/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/lblotta/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/lblotta/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/lblotta/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/lblotta/perl5"; export PERL_MM_OPT;

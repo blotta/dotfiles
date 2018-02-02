@@ -21,6 +21,9 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; Random els load-path
+(add-to-list 'load-path "~/.emacs.d/random-ass-els")
+
 (progn
   ;;turn on highlight matching brackets when cursoe is on one
   (show-paren-mode 1)
@@ -44,6 +47,15 @@
 ;; Automatically refresh files modified elsewhere
 (global-auto-revert-mode 1)
 
+;; Auto-complete-mode
+(ac-config-default)
+
+;; Python
 ;; Standard Jedi.el setting
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
+
+;; Golang
+(require 'go-autocomplete)
+(require 'auto-complete-config)
+(ac-config-default)

@@ -170,6 +170,9 @@ endif
 " goto shortcut
 " map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+" If ycm used python2
+let g:ycm_server_python_interpreter = 'python2'
+
 " Make YCM aware of virtualenv
 py << EOF
 import os
@@ -222,6 +225,10 @@ imap <C-v> <C-r>+
 " Save file with F2
 nmap <F2> :w<Cr>
 imap <F2> <ESC>:w<CR>i
+
+" Try to execute current file
+nnoremap <F9> :!%:p<ENTER>
+inoremap <F9> <ESC>:!%:p<ENTER>
 
 " }}}
 
