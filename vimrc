@@ -1,9 +1,20 @@
 " Settings {{{
-" syntax highlight on
-syntax on
 
-" no old vi-style API
+" EDITING FUNCTIONALITY
+" no vi-compatible
 set nocompatible
+
+"tabs
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+" search
+set incsearch " incremental
+" set hlsearch " highlight search
+set ignorecase " ignore case on search
+set smartcase " when ignorecase is on, match case if search contains uppercase
 
 " no backup and .swp files
 set nobackup
@@ -13,57 +24,17 @@ set noswapfile
 " comm history
 set history=100
 
-" display col and line number
-set ruler
-
-" show incomplete commands
-set showcmd
-
-" search as you type
-set incsearch
-
-" highlight search
-set hlsearch
-
-" ignore case sensitivity when searching
-set ignorecase
-set smartcase
-
 " raise error when quitting while unsaved buffers exist?
 set hidden
 
 " no word wrap
-set nowrap
+" set nowrap
 
 " allow backspace to delete eol, indent and start of line chars
-set backspace=indent,eol,start
-
-" Conver tab to spaces (bad for python???)
-set expandtab
-
-" set tab size in spaces (manual indenting)
-set tabstop=4
-
-" num of spaces inserted for tab (auto indenting)
-set shiftwidth=4
-
-" line nums
-set number
-
-" show trailing hidden chars
-set list listchars=tab:\ \ ,trail:·
+" set backspace=indent,eol,start
 
 " no delay when pressing O (O as in oil)
 set timeout timeoutlen=1000 ttimeoutlen=50
-
-" Always show status bar
-set laststatus=2
-
-" status line
-set statusline=%f\ %=L:%l/%L\ %c\ (%p%%)
-
-" hide tool bar (when using gvim?)
-set guioptions-=T
 
 " encoding
 set encoding=utf-8
@@ -73,6 +44,21 @@ set autoread
 
 " use system clipboard (may need to compile vim with clipboard flag)
 set clipboard+=unnamed
+
+
+" Visual Settings
+" syntax highlight on
+syntax on
+
+" status bar
+set laststatus=2 " always on
+set statusline=%f\ %=L:%l/%L\ %c\ (%p%%)
+
+" line numbers
+set nu
+
+" " show trailing hidden chars
+set list listchars=tab:\ \ ,trail:·
 
 " Don't show intro
 set shortmess+=I
@@ -85,13 +71,11 @@ set splitright
 set visualbell
 
 " visual autocomplete for command menu
-set wildmenu
+" set wildmenu
 
-" don't redraw when executing macro
-set lazyredraw
-
-" highlight matching
-set showmatch
+" highlight column 80
+autocmd BufWinEnter * highlight ColorColumn ctermbg=black
+set colorcolumn=81
 
 " built-in file explorer
 " let g:netrw_liststyle=3     " tree view
@@ -101,33 +85,30 @@ set showmatch
 " let g:netrw_list_hide=netrw_gitignore#Hide()
 " let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
-" highlight column 80
-autocmd BufWinEnter * highlight ColorColumn ctermbg=black
-set colorcolumn=81
 
 " }}}
 
 " Test from YT video {{{
 
-" enable syntax and plugins (builtin netrw)
-syntax enable
-filetype plugin on
+" " enable syntax and plugins (builtin netrw)
+" syntax enable
+" filetype plugin on
 
-" search recursively
-set path+=**
-" ':find (<regex>|<file>|<path>)'
+" " search recursively
+" set path+=**
+" " ':find (<regex>|<file>|<path>)'
 
-" create tags file
-command! Maketags !ctags -R .
-" ^]    jump to tag under cursor
-" g^]   for umbiguous tags
-" ^t    jump back up the tag stack
+" " create tags file
+" command! Maketags !ctags -R .
+" " ^]    jump to tag under cursor
+" " g^]   for umbiguous tags
+" " ^t    jump back up the tag stack
 
-" autocomplete (look for |ins-completion|
-" ^x^n  just current file
-" ^x^f  filenames
-" ^x^]  tags only
-" ^n    anything specified by the 'complete' option
+" " autocomplete (look for |ins-completion|
+" " ^x^n  just current file
+" " ^x^f  filenames
+" " ^x^]  tags only
+" " ^n    anything specified by the 'complete' option
 
 " }}}
 
@@ -229,6 +210,17 @@ imap <F2> <ESC>:w<CR>i
 " Try to execute current file
 nnoremap <F9> :!%:p<ENTER>
 inoremap <F9> <ESC>:!%:p<ENTER>
+
+" tab nav
+map tn :tabn<CR>
+map tp :tabp<CR>
+map tm :tabm 
+map tt :tabnew 
+map ts :tab split<CR>
+map <C-S-Right> :tabn<CR>
+imap <C-S-Right> <ESC>:tabn<CR>
+map <C-S-Left> :tabp<CR>
+imap <C-S-Left> <ESC>:tabp<CR>
 
 " }}}
 
