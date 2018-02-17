@@ -281,6 +281,9 @@ alias ll='ls -l'
 alias la='ls -a'
 alias lla='ll -a'
 
+alias cdtmp='cd $(mktemp -d)'
+alias cdold='cd $OLDPWD'
+
 alias dkps='docker ps'
 alias dkpsa='dkps -a'
 alias dkpsaq='dkpsa -q'
@@ -314,6 +317,7 @@ alias SSr='sudo systemctl restart'
 
 alias G='git status'
 alias Gd='git diff'
+alias Gtop='git status &>/dev/null && while [ ! -d .git ]; do cd .. ; done '
 
 alias sbrc='source ~/.bashrc'
 
