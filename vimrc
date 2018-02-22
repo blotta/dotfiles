@@ -45,6 +45,8 @@ set autoread
 " use system clipboard (may need to compile vim with clipboard flag)
 set clipboard+=unnamed
 
+" Enable mouse support in all modes. Helps with vim within Tmux
+set mouse=a
 
 " Visual Settings
 " syntax highlight on
@@ -221,6 +223,9 @@ map <C-S-Right> :tabn<CR>
 imap <C-S-Right> <ESC>:tabn<CR>
 map <C-S-Left> :tabp<CR>
 imap <C-S-Left> <ESC>:tabp<CR>
+
+" Keep forgetting I'm on Insert mode
+inoremap <C-w> <ESC><C-w>
 
 " }}}
 
