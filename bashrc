@@ -235,6 +235,16 @@ function tdivstr(){
     printf "${dc}%.0s" $(seq 1 $cols)
 }
 
+function simple_ipa(){
+    local ifs=($(ip a | perl -ne 'print qq{ $1 } if /^\d{1,2}:\s([a-z-0-9]+):/;'))
+    for i in ${ifs[@]}; do
+        echo
+        echo $i
+        ip a s $i | perl -ne 'print qq{  $1: $2\n} if /^\s+(inet6?)\s(\S+)\s/'
+    done
+    echo
+    # ip a | perl -ne 'print qq{\n$1\n} if /^\d:\s([a-z-0-9]+):/; print qq{  $1: $2\n} if /^\s+(inet6?)\s(\S+)\s/'
+}
 # Environmental variables #
 ###########################
 # export PS1="\n\[$(tput sgr0)\]\[\033[38;5;2;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;3m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;6m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
@@ -322,6 +332,7 @@ alias Gtop='git status &>/dev/null && while [ ! -d .git ]; do cd .. ; done '
 
 alias sbrc='source ~/.bashrc'
 
+alias ipa='simple_ipa'
 
 alias mypubip='dig +short myip.opendns.com @resolver1.opendns.com'
 
