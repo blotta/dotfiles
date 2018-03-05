@@ -7,7 +7,7 @@
 # Place rc files
 DOTFILEPATH=$(dirname $(realpath $0))
 
-for c in 'bashrc' 'vimrc' 'tmux.conf' 'emacs'; do
+for c in 'bashrc' 'vimrc' 'tmux.conf'; do
     [ -L ~/.${c} ] && unlink ~/.${c}
     [ -f ~/.${c} ] && mv ~/.${c} ~/.${c}.bak
 
@@ -42,6 +42,7 @@ mkdir -p $HOME/.vim/{autoload,bundle,colors}
 # Pathogen
 if [ ! -f $HOME/.vim/autoload/pathogen.vim ]; then
     # Install pathogen
+    echo "Pathogen not yet installed. Installing now" >&2
     curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 fi
 
