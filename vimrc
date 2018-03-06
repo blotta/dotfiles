@@ -48,6 +48,9 @@ set clipboard+=unnamed
 " Enable mouse support in all modes. Helps with vim within Tmux
 set mouse=a
 
+" Make sure 'backspace' always works
+set backspace=indent,eol,start
+
 " Visual Settings
 " syntax highlight on
 syntax on
