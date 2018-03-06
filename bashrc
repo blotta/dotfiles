@@ -249,7 +249,8 @@ function simple_ipa(){
 ###########################
 # export PS1="\n\[$(tput sgr0)\]\[\033[38;5;2;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;3m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;6m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
 #export PS1="\n\[$(tput sgr0)\]\[\e[38;2;175;175;0;1m\]\u \[$(tput sgr0)\]\[\e[38;1m\]@\[$(tput sgr0)\]\[\033[38;2;206;113;9;1m\] \h\[$(tput sgr0)\]\[\033[38;5;15m\] :\[$(tput sgr0)\]\[\033[38;2;135;175;175;1m\] \W\[$(tput sgr0)\]\[\033[38;5;15m\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
-export PS1="\n\[$(tput sgr0)\]$(tput setaf 3; tput bold; tput dim)\u \[$(tput sgr0)\]$(tput bold)@\[$(tput sgr0)\]$(tput setaf 1; tput bold; tput dim) \h\[$(tput sgr0)\] :\[$(tput sgr0)\]$(tput setaf 4; tput bold; tput dim) \W\[$(tput sgr0)\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
+# export PS1="\n\[$(tput sgr0)\]$(tput setaf 3; tput bold; tput dim)\u \[$(tput sgr0)\]$(tput bold)@\[$(tput sgr0)\]$(tput setaf 1; tput bold; tput dim) \h\[$(tput sgr0)\] :\[$(tput sgr0)\]$(tput setaf 4; tput bold; tput dim) \W\[$(tput sgr0)\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
+export PS1="\n\[$(tput sgr0)\]$(tput setaf 178; tput bold)\u \[$(tput sgr0)\]$(tput bold)@\[$(tput sgr0)\]$(tput setaf 166; tput bold; tput dim) \h\[$(tput sgr0)\] :\[$(tput sgr0)\]$(tput setaf 61; tput bold; tput dim) \W\[$(tput sgr0)\] \$? \`parse_git_branch\`\n\\$ \[$(tput sgr0)\]"
 # Background: #262626
 export EDITOR="vim"
 
