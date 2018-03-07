@@ -206,7 +206,7 @@ endif
 " Copy
 vmap <C-c> "+y
 "Paste
-imap <C-v> <C-r>+
+" imap <C-v> <C-r>+
 
 " Save file with F2
 nmap <F2> :w<Cr>
