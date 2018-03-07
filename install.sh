@@ -59,3 +59,18 @@ for k in ${!plugin_clone[@]}; do
 done
 
 
+### Emacs Install ###
+
+echo >&2
+echo "Installing Emacs config" >&2
+
+mkdir -p $HOME/.emacs.d
+
+for c in $(ls --color=no emacs.d/*); do
+    echo "$c"
+    [ -L $HOME/.${c} ] && unlink $HOME/.${c} && echo "  Unlinking old" >&2
+    [ -f $HOME/.${c} ] && mv $HOME/.${c} $HOME/.${c}.bak && echo "  Old file backed up" >&2
+
+    ln -s $DOTFILEPATH/${c} $HOME/.${c} && echo "  Created new link" >&2
+done
+
