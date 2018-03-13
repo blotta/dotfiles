@@ -256,18 +256,18 @@ export EDITOR="vim"
 export PAGER="less"
 export TERM="xterm-256color"
 
-# pyenv setup
-export PYENV_ROOT="$HOME/.pyenv"
-if ! grep "$PYENV_ROOT/bin" <(echo $PATH) &>/dev/null; then
-    export PATH="$PYENV_ROOT/bin:$PATH"
-fi
-if ! grep "$PYENV_ROOT/shims" <(echo $PATH) &>/dev/null; then
-    eval "$(pyenv init -)"
-fi
-# pyenv-virtualenv plugin setup
-if ! [[ "$PATH" =~ "$PYENV_ROOT/plugins/pyenv-virtualenv/shims" ]]; then
-    eval "$(pyenv virtualenv-init -)"
-fi
+# # pyenv setup
+# export PYENV_ROOT="$HOME/.pyenv"
+# if ! grep "$PYENV_ROOT/bin" <(echo $PATH) &>/dev/null; then
+#     export PATH="$PYENV_ROOT/bin:$PATH"
+# fi
+# if ! grep "$PYENV_ROOT/shims" <(echo $PATH) &>/dev/null; then
+#     eval "$(pyenv init -)"
+# fi
+# # pyenv-virtualenv plugin setup
+# if ! [[ "$PATH" =~ "$PYENV_ROOT/plugins/pyenv-virtualenv/shims" ]]; then
+#     eval "$(pyenv virtualenv-init -)"
+# fi
 
 # Golang env
 if [ -z "$GOPATH" ]; then

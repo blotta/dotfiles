@@ -1,14 +1,14 @@
 " Plugs
 call plug#begin()
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
-Plug 'Shougo/neco-vim'
-Plug 'zchee/deoplete-jedi'
-Plug 'zchee/deoplete-go', { 'do' : 'make' }
 Plug 'w0rp/ale'
-" Plug 'roxma/nvim-completion-manager'
+Plug 'roxma/nvim-completion-manager'
+Plug 'roxma/python-support.nvim'
+Plug 'roxma/ncm-clang'
+Plug 'Shougo/neco-vim'
 call plug#end()
 
 " nvim settings {{{
@@ -37,20 +37,25 @@ if !has('gui_running')
     set t_Co=256
 endif
 
-" set correct python interp
-let g:python_host_prog = expand('$PYENV_ROOT/versions/neovim2/bin/python2')
-let g:python3_host_prog = expand('$PYENV_ROOT/versions/neovim3/bin/python3')
+" " set correct python interp
+" let g:python_host_prog = expand('$PYENV_ROOT/versions/neovim2/bin/python2')
+" let g:python3_host_prog = expand('$PYENV_ROOT/versions/neovim3/bin/python3')
 
 """""""""""""""""""""""""""""""""""""""""""""""""" }}}
 
 
 " Plugin Config {{{
 
-" Deoplete {{{
-let g:deoplete#enable_at_startup = 1
 
-" Deoplete Python
-let g:deoplete#sources#jedi#show_docstring = 1
+" nvim-c-m settings
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Python support extra deps {{{
+
+let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'flake8')
+let g:python_support_python2_requirements = add(get(g:,'python_support_python2_requirements',[]),'flake8')
+
 " }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""" }}}
@@ -75,7 +80,7 @@ inoremap <F9> <ESC>:!%:p<ENTER>
 
 " Hooks {{{
 
-" When editing vimrc {{{
+" When editing rc file {{{
 " reading
 autocmd! BufReadPost init.vim
     \ setlocal foldmethod=marker
@@ -96,15 +101,23 @@ autocmd! BufNewFile,BufRead *.{js,html,css}
 """""""""""""""""""""""""""""""""""""""""""""""""" }}}
 
 
-" modeline {{{
+" statusline {{{
 
 " Onyl if lightline is installed
 set noshowmode
 let g:lightline = {
     \ 'colorscheme':  'jellybeans',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component_function': {
+    \   'gitbranch': 'fugitive#head'
+    \ },
     \ }
 
 " }}}
+
 
 " Theme {{{
 set background=dark
