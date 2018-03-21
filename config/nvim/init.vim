@@ -1,14 +1,30 @@
 " Plugs
 call plug#begin()
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'kassio/neoterm'
+" Visuals
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
+
+" Completion
 Plug 'w0rp/ale'
 Plug 'roxma/nvim-completion-manager'
 Plug 'roxma/python-support.nvim'
 Plug 'roxma/ncm-clang'
 Plug 'Shougo/neco-vim'
+
+" rust
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+Plug 'roxma/nvim-cm-racer'
+
+"ruby
+Plug 'roxma/ncm-rct-complete'
+
+" Text
+Plug 'reedes/vim-pencil'
 call plug#end()
 
 " nvim settings {{{
@@ -46,15 +62,54 @@ endif
 
 " Plugin Config {{{
 
+" neoterm {{{
 
-" nvim-c-m settings
+" Always scroll down to reveal latest output
+let g:neoterm_autoscroll = '1'
+
+let g:neoterm_size = 20
+
+" Use gx{text-object} in normal mode
+nmap gx <Plug>(neoterm-repl-send)
+
+" Send selected contents in visual mode.
+xmap gx <Plug>(neoterm-repl-send)
+
+"use `gxx` or `2gxx` to send current or 2 lines to REPL.
+nmap gxx <Plug>(neoterm-repl-send-line)
+
+" hides terminal
+nnoremap <leader>0 :Ttoggle<Enter>
+
+" }}}
+
+" nvim-completion-manager settings {{{
+" When popup shows and enter is pressed, hide menu and enter newline
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" }}}
 
 " Python support extra deps {{{
 
 let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'flake8')
 let g:python_support_python2_requirements = add(get(g:,'python_support_python2_requirements',[]),'flake8')
+
+" }}}
+
+let g:racer_experimental_completer = 1
+
+" Pencil {{{
+
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
 
 " }}}
 
@@ -74,6 +129,25 @@ inoremap <F2> <ESC>:w<CR>a
 " Try to execute current file
 nnoremap <F9> :!%:p<ENTER>
 inoremap <F9> <ESC>:!%:p<ENTER>
+
+" Use esc on terminal to get out of insert mode
+tnoremap <Esc> <C-\><C-n>
+
+" use Alt-{h,j,k,l} in any mode to navigate windows
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""" }}}
 
@@ -97,6 +171,9 @@ autocmd! BufNewFile,BufRead *.{js,html,css}
     \ softtabstop=2
     \ shiftwidth=2
 " }}}
+
+" Start on insert mode when entering terminal
+autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""" }}}
 

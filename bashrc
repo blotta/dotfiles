@@ -174,6 +174,15 @@ function tempsscert(){
     openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out cert.pem $@
 }
 
+function add_to_path() {
+
+    local path="$1"
+    if ! grep -q "${path}" <(echo $PATH) &>/dev/null; then
+        export PATH="${path}:${PATH}"
+    fi
+
+}
+
 #start tune
 #play -q "|sox -n -p synth 0.13 sin 200 delay 0.5" "|sox -n -p synth 0.13 sin 250" "|sox -n -p synth 0.13 sin 300" "|sox -n -p synth 0.13 sin 400" "|sox -n -p synth 0.13 sin 300" "|sox -n -p synth 0.13 sin 250" "|sox -n -p synth 0.4 sin 200" &
  
@@ -280,6 +289,10 @@ if ! grep "${GOPATH}/bin" <(echo $PATH) &>/dev/null; then
     export PATH="${PATH}:${GOPATH}/bin"
 fi
 
+# Ruby local path
+add_to_path "$HOME/.gem/ruby/2.5.0/bin"
+
+
 # My Scripts
 if ! grep "${HOME}/bin" <(echo $PATH) &>/dev/null; then
     export PATH="${HOME}/bin:${PATH}"
@@ -347,6 +360,8 @@ alias Gd='git diff'
 alias Gtop='git status &>/dev/null && while [ ! -d .git ]; do cd .. ; done '
 
 alias sbrc='source ~/.bashrc'
+
+alias cdtmp='cd $(mktemp -d)'
 
 alias ipa='simple_ipa'
 
