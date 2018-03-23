@@ -3,6 +3,7 @@ call plug#begin()
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-vinegar'
 Plug 'kassio/neoterm'
 " Visuals
 Plug 'morhetz/gruvbox'
@@ -52,6 +53,9 @@ set laststatus=2
 if !has('gui_running')
     set t_Co=256
 endif
+
+" netrw
+let g:netrw_liststyle = 3
 
 " " set correct python interp
 " let g:python_host_prog = expand('$PYENV_ROOT/versions/neovim2/bin/python2')
