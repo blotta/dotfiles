@@ -154,7 +154,21 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
+" Alt-Shift-{hl} to nav tabs
+tnoremap <A-S-h> <C-\><C-N>gT
+tnoremap <A-S-l> <C-\><C-N>gt
+inoremap <A-S-h> <C-\><C-N>gT
+inoremap <A-S-l> <C-\><C-N>gt
+nnoremap <A-S-h> gT
+nnoremap <A-S-l> gt
 
+" Alt-Shift-{jk} to create/close tab
+tnoremap <A-S-j> <C-\><C-N>:tabclose<Enter>
+tnoremap <A-S-k> <C-\><C-N>:tabnew<Enter>
+inoremap <A-S-j> <C-\><C-N>:tabclose<Enter>
+inoremap <A-S-k> <C-\><C-N>:tabnew<Enter>
+nnoremap <A-S-j> :tabclose<Enter>
+nnoremap <A-S-k> :tabnew<Enter>
 
 """""""""""""""""""""""""""""""""""""""""""""""""" }}}
 
