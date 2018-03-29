@@ -85,6 +85,9 @@ nmap gxx <Plug>(neoterm-repl-send-line)
 " hides terminal
 nnoremap <leader>0 :Ttoggle<Enter>
 
+" opens new term
+nnoremap <leader>t :botright :Tnew<Enter> <C-w>j
+
 " }}}
 
 " nvim-completion-manager settings {{{
