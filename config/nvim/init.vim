@@ -28,6 +28,8 @@ Plug 'roxma/ncm-rct-complete'
 Plug 'reedes/vim-pencil'
 call plug#end()
 
+let mapleader="\<space>"
+
 " nvim settings {{{
 set hidden
 set number
@@ -124,7 +126,6 @@ augroup END
 
 
 " nvim mappings {{{
-let mapleader="\<space>"
 
 nnoremap <leader>ce :tabnew ~/.config/nvim/init.vim<cr>
 nnoremap <leader>cr :source ~/.config/nvim/init.vim<cr>
