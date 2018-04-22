@@ -4,6 +4,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-speeddating'
 Plug 'kassio/neoterm'
 " Visuals
 Plug 'morhetz/gruvbox'
@@ -26,6 +27,7 @@ Plug 'roxma/ncm-rct-complete'
 
 " Text
 Plug 'reedes/vim-pencil'
+Plug 'jceb/vim-orgmode'
 call plug#end()
 
 let mapleader="\<space>"
@@ -192,6 +194,13 @@ autocmd! BufNewFile,BufRead *.{js,html,css}
     \ setlocal tabstop=2
     \ softtabstop=2
     \ shiftwidth=2
+" }}}
+
+" Org mode {{{
+
+autocmd! BufNewFile,BufRead *.org
+    \ let maplocalleader="\\"
+
 " }}}
 
 " Start on insert mode when entering terminal
