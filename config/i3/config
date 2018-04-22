@@ -180,12 +180,12 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 mode "open-favorite" {
-    bindsym f exec firefox
+    bindsym f exec firefox,mode "default"
     bindsym n   workspace 9:netflix; \
                 exec firefox --new-window https://netflix.com/browse ; \
-                fullscreen enable
-    bindsym 3 exec firefox http://i3wm.org/docs/userguide.html
-    bindsym y exec firefox https://youtube.com
+                fullscreen enable,mode "default"
+    bindsym 3 exec firefox http://i3wm.org/docs/userguide.html,mode "default"
+    bindsym y exec firefox https://youtube.com,mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
