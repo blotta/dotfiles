@@ -1,3 +1,10 @@
+" Install Vim Plug if not installed
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+
 " Plugs
 call plug#begin()
 Plug 'tpope/vim-commentary'
@@ -24,6 +31,10 @@ Plug 'roxma/nvim-cm-racer'
 
 "ruby
 Plug 'roxma/ncm-rct-complete'
+
+" ts
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript'
 
 " Text
 Plug 'reedes/vim-pencil'
@@ -110,7 +121,15 @@ let g:python_support_python2_requirements = add(get(g:,'python_support_python2_r
 
 " }}}
 
+" Rust racer {{{
 let g:racer_experimental_completer = 1
+" }}}
+
+" Ale {{{
+let g:ale_fixers = {
+            \'typescript': ['prettier'],
+            \}
+" }}}
 
 " Pencil {{{
 
@@ -139,6 +158,12 @@ inoremap <F2> <ESC>:w<CR>a
 " Try to execute current file
 nnoremap <F9> :!%:p<ENTER>
 inoremap <F9> <ESC>:!%:p<ENTER>
+
+" Send from cursor to end of line to its own line above (alt-enter)
+nnoremap <A-CR> d$0O<Esc>P
+inoremap <A-CR> <Esc>ld$0O<Esc>Pa
+vnoremap <A-CR> d0O<Esc>P
+
 
 " Use esc on terminal to get out of insert mode
 tnoremap <Esc> <C-\><C-n>
@@ -190,10 +215,17 @@ autocmd! BufWritePost init.vim
 " }}}
 
 " Web {{{
-autocmd! BufNewFile,BufRead *.{js,html,css}
+autocmd! BufNewFile,BufRead *.{js,html,css,ts}
     \ setlocal tabstop=2
     \ softtabstop=2
     \ shiftwidth=2
+" }}}
+
+" Ts {{{
+
+autocmd! BufNewFile,BufRead *.ts
+    \ setlocal filetype=typescript
+
 " }}}
 
 " Org mode {{{
@@ -229,7 +261,11 @@ let g:lightline = {
 
 " Theme {{{
 set background=dark
-
-colorscheme gruvbox
+" Install Vim Plug if not installed
+if empty(glob('~/.config/nvim/plugged/gruvbox/autoload/gruvbox.vim'))
+    colorscheme desert
+else
+    colorscheme gruvbox
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""" }}}
