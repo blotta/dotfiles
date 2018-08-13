@@ -117,88 +117,6 @@ set colorcolumn=81
 
 " }}}
 
-" Plugins {{{
-
-" Plugin manager {{{
-" https://github.com/tpope/vim-pathogen
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-" }}}
-
-" vim-commentary {{{
-" https://github.com/tpope/vim-commentary
-" add filetype comment
-" autocmd FileType apache setlocal commentstring=#\ %s
-" }}}
-
-" NERDTree {{{
-if filereadable(expand("$HOME/.vim/bundle/nerdtree/plugin/NERD_tree.vim"))
-    " https://github.com/scrooloose/nerdtree
-    " map to ctrl+n
-    map <C-n> :NERDTreeToggle<CR>
-    " close vim if NERDTree is only window open
-    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && \
-    " b:NERDTree.isTabTree()) | q | endif
-    " Open NERDTree when vim opens (with argument)
-    " autocmd vimenter * NERDTree
-endif
-" }}}
-
-" vim-surround {{{
-" https://github.com/tpope/vim-surround
-" }}}
-
-" YouCompleteMe {{{
-" https://github.com/Valloric/YouCompleteMe#fedora-linux-x64
-" ensures to close autocomplete windows when done
-" let g:ycm_autoclose_preview_window_after_completion=1
-" goto shortcut
-" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" If ycm used python2
-let g:ycm_server_python_interpreter = 'python2'
-
-" Make YCM aware of virtualenv
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
-" }}}
-
-" Syntastic {{{
-" https://github.com/vim-syntastic/syntastic
-
-" Recommended start config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_python_checkers = ['flake8']
-" }}}
-
-" }}}
-
-" Theme {{{
-if filereadable(expand("$HOME/.vim/bundle/gruvbox/colors/gruvbox.vim"))
-    colorscheme gruvbox
-else
-    colorscheme desert
-endif
-set background=dark
-if g:colors_name == 'gruvbox'
-    let g:gruvbox_contrast_dark = 'soft'
-endif
-" }}}
 
 " Mappings {{{
 
@@ -279,4 +197,11 @@ autocmd! BufRead,BufNewFile *.{markdown,md}
     \ cc=
 
 " }}}
+" }}}
+
+" Theme {{{
+
+set background=dark
+colorscheme desert
+
 " }}}
