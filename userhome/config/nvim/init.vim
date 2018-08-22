@@ -1,11 +1,14 @@
-" Install Vim Plug if not installed
+" Install Vim Plug if not installed {{{
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
 
-" Plugs
+" }}}
+
+
+" Plugs {{{
 call plug#begin()
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -18,43 +21,28 @@ Plug 'kassio/neoterm'
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
 
-" NEW Completion
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-
-" NOTE: you need to install completion sources to get completions. Check
-" our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
-Plug 'ncm2/ncm2-bufword'
-"Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-path'
-
-Plug 'ncm2/ncm2-jedi'
-Plug 'ncm2/ncm2-vim'
-Plug 'ncm2/ncm2-go'
-
-" Completion
-"Plug 'w0rp/ale'
-"Plug 'roxma/nvim-completion-manager'
-"Plug 'roxma/python-support.nvim'
-"Plug 'roxma/ncm-clang'
-"Plug 'Shougo/neco-vim'
-
-" rust
-"Plug 'rust-lang/rust.vim'
-"Plug 'racer-rust/vim-racer'
-"Plug 'roxma/nvim-cm-racer'
-
-"ruby
-"Plug 'roxma/ncm-rct-complete'
-
 " Text
 Plug 'reedes/vim-pencil'
 "Plug 'jceb/vim-orgmode'
+
+" Completion
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+
+" Completion Sources
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-go'
+Plug 'ncm2/ncm2-jedi'
+
 call plug#end()
+" }}}
+
+
+" nvim settings {{{
 
 let mapleader="\<space>"
 
-" nvim settings {{{
 set hidden
 set number
 set mouse=a
@@ -117,9 +105,7 @@ nnoremap <leader>t :botright :Tnew<Enter> <C-w>j
 " }}}
 
 " ncm2 {{{
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
-" IMPORTANTE: :help Ncm2PopupOpen for more information
+autocmd InsertEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 
 " Optional
@@ -139,49 +125,6 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" wrap existing omnifunc
-" Note that omnifunc does not run in background and may probably block the
-" editor. If you don't want to be blocked by omnifunc too often, you could
-" add 180ms delay before the omni wrapper:
-"  'on_complete': ['ncm2#on_complete#delay', 180,
-"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-au User Ncm2Plugin call ncm2#register_source({
-        \ 'name' : 'css',
-        \ 'priority': 9, 
-        \ 'subscope_enable': 1,
-        \ 'scope': ['css','scss'],
-        \ 'mark': 'css',
-        \ 'word_pattern': '[\w\-]+',
-        \ 'complete_pattern': ':\s*',
-        \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-        \ })
-
-" }}}
-
-" nvim-completion-manager settings {{{
-" When popup shows and enter is pressed, hide menu and enter newline
-"inoremap <expr> <CR> (pumvisible() ? '\<c-y>\<cr>' : '\<CR>')
-"
-"inoremap <expr> <Tab> pumvisible() ? '\<C-n>' : '\<Tab>'
-"inoremap <expr> <S-Tab> pumvisible() ? '\<C-p>' : '\<S-Tab>'
-
-" }}}
-
-" Python support extra deps {{{
-"
-"let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'flake8')
-"let g:python_support_python2_requirements = add(get(g:,'python_support_python2_requirements',[]),'flake8')
-"
-" }}}
-
-" Rust racer {{{
-"let g:racer_experimental_completer = 1
-" }}}
-
-" Ale {{{
-"let g:ale_fixers = {
-"            \'typescript': ['prettier'],
-"            \}
 " }}}
 
 " Pencil {{{
@@ -274,19 +217,6 @@ autocmd! BufNewFile,BufRead *.{js,html,css,ts}
     \ shiftwidth=2
 " }}}
 
-" Ts {{{
-
-autocmd! BufNewFile,BufRead *.ts
-    \ setlocal filetype=typescript
-
-" }}}
-
-" Org mode {{{
-
-autocmd! BufNewFile,BufRead *.org
-    \ let maplocalleader="\\"
-
-" }}}
 
 " Start on insert mode when entering terminal
 autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
