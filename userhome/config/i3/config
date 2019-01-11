@@ -225,4 +225,6 @@ exec compton -f
 
 exec --no-startup-id gxkb
 
+exec --no-startup-id dunst
+
 exec firefox

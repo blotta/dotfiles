@@ -107,7 +107,7 @@ export PAGER="less"
 export TERM="xterm-256color"
 
 # Golang env
-[ -z "$GOPATH" ] && GOPATH="${HOME}/devel/golang" && mkdir -p $GOPATH
+[ -z "$GOPATH" ] && GOPATH="${HOME}/go" && mkdir -p $GOPATH
 
 # Golang bin path
 add_to_path "${GOPATH}/bin"
@@ -131,7 +131,6 @@ add_to_path "${HOME}/bin" prepend
 
 DKPSFMT="\n\n\tName\t{{.Names}}\n\tID\t{{.ID}}\n\tImage\t{{.Image}}\n\tStatus\t{{.Status}}\n\tPorts\t{{.Ports}}\n\tCommand\t{{.Command}}"
 
-export PYENVS="${HOME}/devel/python/Environments"
 
 
 ## Aliases ##
