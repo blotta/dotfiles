@@ -125,6 +125,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id sh -c 'amixer set Master 5%+'
 bindsym XF86AudioLowerVolume exec --no-startup-id sh -c 'amixer set Master 5%-'
 bindsym XF86AudioMute exec --no-startup-id sh -c 'amixer set Master toggle'
 
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
 # don't focus on window just for scrolling
 focus_follows_mouse no
 bindsym button2 nop

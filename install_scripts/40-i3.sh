@@ -31,4 +31,4 @@ ln -s $FAKEHOME/config/i3blocks/i3blocks.conf $I3BLOCKSPATH/i3blocks.conf
 
 
 
-echo 'Install i3, i3blocks, rofi and compton (There may be more tools necessary for gathering info)' >&2
+echo 'Install i3, i3blocks, rofi, compton, sysstat and acpi (There may be more tools necessary for gathering info and displaying unicode chars)' >&2
