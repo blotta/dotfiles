@@ -1,0 +1,106 @@
+---
+
+- set_fact:
+    xset_pkg: "xorg-xset"
+  when: ansible_os_family == 'Archlinux'
+
+- set_fact:
+    xset_pkg: "x11-xserver-tools"
+  when: ansible_os_family == 'Debian'
+
+- name: Install i3
+  become: yes
+  package:
+    name: "{{item}}"
+  with_items:
+    - i3-wm
+    - i3lock
+    - i3blocks
+    - i3status
+    - dmenu
+    - rofi
+    - compton
+    - sysstat
+    - acpi
+    - xclip
+    - "{{ xset_pkg }}"
+    - xsensors
+    - alsa-utils
+    - dunst
+    - gxkb
+
+- name: Create directory
+  file:
+      path: "{{ ansible_user_dir }}/.config/{{item}}"
+      state: directory
+  with_items:
+    - i3
+    - i3status
+    - i3blocks
+
+    
+- set_fact:
+    terminal_emulator: "i3-sensible-terminal"
+
+
+- name: Check terminals
+  shell: "which {{item}}"
+  register: termstatus
+  ignore_errors: True
+  with_items:
+    - xterm
+    - gnome-terminal
+    - termite #preferred on last spot
+
+- debug:
+    var: termstatus
+
+- set_fact:
+    terminal_emulator: "{{item.stdout}}"
+  when: item.rc == 0
+  loop: "{{ termstatus.results }}"
+
+
+- debug:
+    var: terminal_emulator
+
+- name: Place i3wm config file
+  template:
+    src: i3wm-config.j2
+    dest: "{{ ansible_user_dir }}/.config/i3/config"
+
+
+# i3status
+- name: Place i3status config file
+  template:
+    src: i3status-config.j2
+    dest: "{{ ansible_user_dir }}/.config/i3status/config"
+
+
+# i3blocks
+
+- set_fact:
+    i3blocks_scripts_dir: "/usr/lib/i3blocks"
+
+- set_fact:
+    i3blocks_scripts_dir: "/usr/share/i3blocks"
+  when: ansible_os_family == 'Debian'
+
+- name: Place i3blocks config file
+  template:
+    src: i3blocks.conf.j2
+    dest: "{{ ansible_user_dir }}/.config/i3blocks/i3blocks.conf"
+  
+- debug:
+    msg: "Make sure you have the following commands for i3blocks: mpstat (sysstat), acpi, xclip, xset, nproc, playerctl, sensors, amixer"
+
+
+# --== i3blocks scripts ==--
+# cpu_usage: mpstat
+# battery: acpi
+# iface: xclip
+# keyindicator: xset
+# load_average: nproc
+# mediaplayer: playerctl
+# temperature: sensors
+# volume: amixer
