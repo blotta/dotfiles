@@ -36,6 +36,7 @@
     - alsa-utils
     - dunst
     - gxkb
+    - "{{ bar_font }}"
 
 - name: Create directory
   file:
