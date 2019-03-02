@@ -5,7 +5,7 @@
   when: ansible_os_family == 'Archlinux'
 
 - set_fact:
-    xset_pkg: "x11-xserver-tools"
+    xset_pkg: "x11-xserver-utils"
   when: ansible_os_family == 'Debian'
 
 - name: Install i3
