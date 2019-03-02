@@ -224,6 +224,10 @@ bar {
 
 # Startup
 
+exec --no-startup-id xset r rate 200 60
+
+exec --no-startup-id setxkbmap -option ctrl:nocaps
+
 exec compton -f
 
 exec --no-startup-id gxkb
