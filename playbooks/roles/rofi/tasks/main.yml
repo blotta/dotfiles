@@ -4,6 +4,11 @@
   package:
     name: rofi
 
+- name: Create Rofi config directory
+  file:
+      state: directory
+      path: "{{ ansible_user_dir }}/.config/rofi"
+
 - name: Place rofi config file
   template:
     src: config.j2
