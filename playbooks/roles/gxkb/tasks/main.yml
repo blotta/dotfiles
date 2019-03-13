@@ -1,0 +1,14 @@
+---
+- name: Install gxkb
+  package:
+    name: "gxkb"
+    state: "latest"
+
+- file:
+    path: "{{ ansible_user_dir }}/.config/gxkb"
+    state: directory
+
+- name: Place gxkb config file
+  copy:
+    src: gxkb.cfg.j2
+    dest: "{{ ansible_user_dir }}/.config/gxkb/gxkb.cfg"
