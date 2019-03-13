@@ -1,0 +1,27 @@
+---
+
+- name: Assemble bash_profile config
+  assemble:
+    remote_src: no
+    src: "{{ role_path }}/files/profile"
+    dest: "{{ bash_profile_cfg_path }}"
+    backup: yes
+    delimiter: "\n\n"
+  register: profilecfg
+
+- debug:
+    msg: ".bash_profile was updated. Log in again for changes to take effect"
+  when: profilecfg.changed == true
+
+- name: Assemble bashrc config
+  assemble:
+    remote_src: no
+    src: "{{ role_path }}/files/rc"
+    dest: "{{ bashrc_cfg_path }}"
+    backup: yes
+    delimiter: "\n\n"
+  register: rccfg
+
+- debug:
+    msg: ".bashrc was updated"
+  when: rccfg.changed == true
