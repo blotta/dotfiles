@@ -10,6 +10,9 @@ add_to_path "${GOPATH}/bin"
 # Perl 5
 # perl -V | head -1 | grep "revision 5" >&2 >/dev/null && [ -d "$HOME/perl5/bin" ] && add_to_path "$HOME/perl5/bin" prepend
 
+# Node.js
+[ -d "$HOME/.node_modules_global" ] && add_to_path "$HOME/.node_modules_global/bin"
+
 # My Scripts
 mkdir -p ${HOME}/bin && add_to_path "${HOME}/bin" prepend
 
