@@ -6,13 +6,19 @@ function tempsscert(){
     openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out cert.pem $@
 }
 
-function add_to_path() {
-    [ -z "$1" ] && return 1
-    local path="$1"
+function echo_paths() {
     local paths p
     IFS=':' read -ra paths <<< $PATH
     for p in "${paths[@]}"; do
-        # [ $path == $p ] && echo "Path '$p' alredy present" && return
+        echo $p
+    done
+}
+
+function add_to_path() {
+    [ -z "$1" ] && return 1
+    local path="$1"
+    paths=($(echo_paths))
+    for p in ${paths[@]}; do
         [ $path == $p ] && return
     done
 

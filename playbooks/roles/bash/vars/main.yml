@@ -1,3 +1,4 @@
 ---
 bash_profile_cfg_path: "{{ ansible_user_dir }}/.bash_profile"
+profile_cfg_path: "{{ ansible_user_dir }}/.profile"
 bashrc_cfg_path: "{{ ansible_user_dir }}/.bashrc"

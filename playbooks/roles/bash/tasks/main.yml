@@ -4,14 +4,19 @@
   assemble:
     remote_src: no
     src: "{{ role_path }}/files/profile"
-    dest: "{{ bash_profile_cfg_path }}"
+    dest: "{{ profile_cfg_path }}"
     backup: yes
     delimiter: "\n\n"
   register: profilecfg
 
 - debug:
-    msg: ".bash_profile was updated. Log in again for changes to take effect"
+    msg: ".profile was updated. Log in again for changes to take effect"
   when: profilecfg.changed == true
+
+- name: remove bash_profile
+  file:
+    path: "{{ bash_profile_cfg_path }}"
+    state: absent
 
 - name: Assemble bashrc config
   assemble:

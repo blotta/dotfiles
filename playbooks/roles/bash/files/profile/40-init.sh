@@ -1,7 +1,7 @@
 ## Initialization tasks ##
 ##########################
 
-echo "bash_profile init ran $(date)" >> /tmp/dotfiles_init
+echo "$(basename $0) ran $(date)" >> /tmp/dotfiles_debug
 
 # X Settings
 ##############
