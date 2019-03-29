@@ -49,9 +49,12 @@ alias SSr='sudo systemctl restart'
 alias G='git status'
 alias Gd='git diff'
 alias Gtop='git status &>/dev/null && while [ ! -d .git ]; do cd .. ; done '
+alias Gc='git commit -m '
 
 alias sbrc='source ~/.bashrc'
 
 alias ipa='simple_ipa'
 
 alias mypubip='dig +short myip.opendns.com @resolver1.opendns.com'
+
+alias lblk='lsblk -o NAME,LABEL,FSTYPE,MOUNTPOINT,FSSIZE,FSUSED,ROTA'
