@@ -1,0 +1,30 @@
+---
+
+- name: Check if there is an enabled DM
+  service:
+    name: "{{ item }}"
+  register: dm_services
+  loop:
+    - lightdm
+    - gdm
+    - lxdm
+    - xdm
+  
+# - debug:
+#     msg: "{{ dm_services }}"
+
+# - debug:
+#     msg: "{{ item.status.ActiveState }}"
+#   loop: "{{ dm_services.results | flatten }}"
+
+- name: Place xinitrc file
+  copy:
+    src: xinitrc
+    dest: "{{ ansible_user_dir }}/.xinitrc"
+
+- name: Remove xinitrc if using DM
+  file:
+    path: "{{ ansible_user_dir }}/.xinitrc"
+    state: absent
+  when: item.status.ActiveState != 'inactive'
+  loop: "{{ dm_services.results | flatten }}"
