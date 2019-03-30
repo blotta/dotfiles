@@ -1,8 +1,0 @@
-{
-    "install_scripts": {
-        "test": {
-            "args": ["rock", "n roll"],
-            "interpreter": "/bin/bash"
-        }
-    }
-}
