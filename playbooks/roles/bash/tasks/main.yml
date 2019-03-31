@@ -1,21 +1,5 @@
 ---
 
-- name: Assemble bash_profile config
-  assemble:
-    remote_src: no
-    src: "{{ role_path }}/files/profile"
-    dest: "{{ profile_cfg_path }}"
-    backup: yes
-    delimiter: "\n\n"
-  register: profilecfg
-
-- debug:
-    msg: ".profile was updated. Log in again for changes to take effect"
-  when: profilecfg.changed == true
-
-
-
-
 - name: Check if startx is being used
   stat:
     path: "{{ ansible_user_dir }}/.xinitrc"
@@ -43,7 +27,7 @@
 
 
 
-- name: Assemble profile config
+- name: Assemble profile config if using DM
   assemble:
     remote_src: no
     src: "{{ role_path }}/files/profile"
