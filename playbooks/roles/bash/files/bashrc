@@ -15,8 +15,7 @@ export EDITOR='/usr/bin/nvim'
 
 export BROWSER='/usr/bin/firefox'
 
-e:;c
-:;cxport PAGER='/usr/bin/less'
+export PAGER='/usr/bin/less'
 
 export DKPSFMT="\n\n\tName\t{{.Names}}\n\tID\t{{.ID}}\n\tImage\t{{.Image}}\n\tStatus\t{{.Status}}\n\tPorts\t{{.Ports}}\n\tCommand\t{{.Command}}"
 
@@ -143,6 +142,6 @@ function quickscan () {
 ## Aliases ##
 #############
 
-if [ -f $HOME/bash_aliases ]; then
-	source $HOME/bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+	source $HOME/.bash_aliases
 fi
