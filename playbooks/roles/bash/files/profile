@@ -1,0 +1,12 @@
+# Golang env
+[ -z "$GOPATH" ] && export GOPATH="${HOME}/go" && mkdir -p $GOPATH
+
+# Golang bin path
+[ -n "$GOPATH" ] && [ -d "$GOPATH/bin" ] && export PATH=$GOPATH/bin:$PATH
+
+# Node.js
+[ -d "$HOME/.node_modules_global" ] && add_to_path "$HOME/.node_modules_global/bin" prepend
+
+# My Scripts
+mkdir -p ${HOME}/bin && export PATH=${HOME}/bin:$PATH
+mkdir -p ${HOME}/.local/bin && export PATH=${HOME}/.local/bin

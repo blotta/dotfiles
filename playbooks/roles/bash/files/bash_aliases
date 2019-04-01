@@ -35,8 +35,8 @@ alias dknr='dkn rm'
 alias dknl='dkn ls'
 
 alias dkcmp='docker-compose'
-alias dkcmpb='dkcmp build'
-alias dkcmpup='dkcmp up'
+alias dkcmpb='docker-compose build'
+alias dkcmpup='docker-compose up'
 
 alias jj='journalctl'
 
