@@ -53,9 +53,11 @@
 
 
 - name: Check terminals
-  shell: "which {{item}}"
+  command: "which {{item}}"
   register: termstatus
   ignore_errors: True
+  changed_when: False
+  failed_when: False
   with_items:
     - xterm
     - gnome-terminal
@@ -70,8 +72,8 @@
   loop: "{{ termstatus.results }}"
 
 
-- debug:
-    var: terminal_emulator
+# - debug:
+#     var: terminal_emulator
 
 - name: Place i3wm config file
   template:
@@ -113,3 +115,45 @@
 # mediaplayer: playerctl
 # temperature: sensors
 # volume: amixer
+
+# Dunst
+- name: Create dunstrc folder
+  file:
+    path: "{{ ansible_user_dir }}/.config/dunst"
+    state: directory
+
+- name: Place dunstrc file
+  copy:
+    src: dunstrc
+    dest: "{{ ansible_user_dir }}/.config/dunst/dunstrc"
+
+
+# gxkb
+
+- name: Create gxkb cfg folder
+  file:
+    path: "{{ ansible_user_dir }}/.config/gxkb"
+    state: directory
+
+- name: Place gxkb config file
+  copy:
+    src: gxkb.cfg
+    dest: "{{ ansible_user_dir }}/.config/gxkb/gxkb.cfg"
+
+
+# rofi
+
+- name: Create Rofi config directory
+  file:
+      state: directory
+      path: "{{ ansible_user_dir }}/.config/rofi"
+
+- name: Place rofi config file
+  copy:
+    src: rofi.config
+    dest: "{{ ansible_user_dir }}/.config/rofi/config"
+
+- name: Place rofi theme config file
+  copy:
+    src: rofi.gruvbox-dark-soft.rasi
+    dest: "{{ ansible_user_dir }}/.config/rofi/gruvbox-dark-soft.rasi"
