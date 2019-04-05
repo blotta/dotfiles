@@ -1,15 +1,9 @@
 
 # Start with 'startx ~/.xinitrc <session>'
 
-
-# Common settings
-
-# Keyboard repeat rate
-xset r rate 200 60
-
-# Set CAPS to CTRL
-setxkbmap -option ctrl:nocaps
-
+# Import X settings
+[ -f /etc/xprofile ] && . /etc/xprofile
+[ -f ~/.xprofile ] && . ~/.xprofile
 
 session=${1:=xfce}
 
@@ -47,17 +41,7 @@ case "$session" in
         exec bspwm
         ;;
 
-    qtile)
-        # Adjust monitors just before exwm starts
-        $HOME/bin/adjust-monitors.sh
-
-        # Start Qtile
-        exec qtile
-        ;;
-
     i3|i3wm)
-        #$HOME/bin/adjust-monitors.sh
-
         exec i3
         ;;
     *)

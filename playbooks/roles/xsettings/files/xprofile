@@ -1,0 +1,6 @@
+
+xset r rate 200 60
+
+setxkbmap -option ctrl:nocaps
+
+nm-applet &

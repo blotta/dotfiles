@@ -17,14 +17,32 @@
 #     msg: "{{ item.status.ActiveState }}"
 #   loop: "{{ dm_services.results | flatten }}"
 
+- set_fact:
+    dm_enabled:  false
+
+- set_fact:
+    dm_enabled : true
+  when: item.status.ActiveState != 'inactive'
+  loop: "{{ dm_services.results | flatten }}"
+
+- debug:
+    var: dm_enabled
+
 - name: Place xinitrc file
   copy:
     src: xinitrc
     dest: "{{ ansible_user_dir }}/.xinitrc"
+  when: not dm_enabled
 
 - name: Remove xinitrc if using DM
   file:
     path: "{{ ansible_user_dir }}/.xinitrc"
     state: absent
-  when: item.status.ActiveState != 'inactive'
-  loop: "{{ dm_services.results | flatten }}"
+  when: dm_enabled
+
+
+# xprofile is read by DMs too
+- name: Place xprofile
+  copy:
+    src: xprofile
+    dest: "{{ ansible_user_dir }}/.xprofile"
