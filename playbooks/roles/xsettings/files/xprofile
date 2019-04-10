@@ -3,4 +3,6 @@ xset r rate 200 60
 
 setxkbmap -option ctrl:nocaps
 
+find $HOME/hostscripts/x/ -type f -exec '{}' \;
+
 nm-applet &

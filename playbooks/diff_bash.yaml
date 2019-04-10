@@ -33,3 +33,7 @@
       - really_apply == true
       - item.rc == 1
     loop: "{{ diff.results|flatten }}"
+  
+  - debug:
+      msg: "To apply changes from working files, issue \"ansible-playbook playbooks/diff_bash.yaml --extra-vars '{really_apply: true}'\""
+    when: not really_apply
