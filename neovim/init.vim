@@ -27,6 +27,14 @@ function NoGuiPopup()
     endif
 endfunction
 au VimEnter * call NoGuiPopup()
+
+function AdjustFont()
+    if exists('g:GuiLoaded')
+        set guifont=:h12
+        set guifont=Fira\ Code:h12
+    endif
+endfunction
+au VimEnter * call AdjustFont()
 " }}}
 
 " Plug {{{
@@ -42,9 +50,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 
-" Plug 'kassio/neoterm'
-
 Plug 'preservim/nerdtree'
+Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -83,6 +90,9 @@ nnoremap <leader>cs :execute(':source ' . stdpath('config') . "/init.vim")<cr>
 " Save file with F2
 nnoremap <F2> :w<CR>
 inoremap <F2> <ESC>:w<CR>a
+
+" ABNT
+nnoremap Ç :
 
 " Send text from cursor until end o line to its own line above (alt-enter)
 nnoremap <A-CR> d$0O<Esc>P
@@ -144,27 +154,12 @@ if g:os == "Windows"
     " set shellredir=\|\ Out-File\ -Encoding\ UTF8
 endif
 
-" neoterm {{{
-" Always scroll down to reveal latest output
-"let g:neoterm_autoscroll = '1'
-"let g:neoterm_size = 20
-"" Use gx{text-object} in normal mode
-"nmap gx <Plug>(neoterm-repl-send)
-"" Send selected contents in visual mode.
-"xmap gx <Plug>(neoterm-repl-send)
-""use `gxx` or `2gxx` to send current or 2 lines to REPL.
-"nmap gxx <Plug>(neoterm-repl-send-line)
-"" hides terminal
-"nnoremap <leader>0 :Ttoggle<Enter>
-" opens new term
-" nnoremap <leader>t :botright :Tnew<Enter> <C-w>j
-nnoremap <leader>tt :terminal<Enter>a
-nnoremap <leader>th :sp<Enter><C-w>j:terminal<Enter>a
-nnoremap <leader>tv :vs<Enter><C-w>l:terminal<Enter>a
-
-" }}}
-
 " Term Mappings {{{
+
+" Open term
+nnoremap <leader>tt :terminal<Enter>a
+nnoremap <silent> <leader>th :sp<Enter><C-w>j:terminal<Enter>:resize 12<Enter>a
+nnoremap <leader>tv :vs<Enter><C-w>l:terminal<Enter>a
 
 " Use esc on terminal to get out of insert mode
 tnoremap <Esc> <C-\><C-n>
@@ -305,30 +300,66 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
 " Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " " }}}
 
 " NERDTree {{{
 map <leader>n :NERDTreeToggle<CR>
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" }}}
+
+" CtrlP {{{
+" https://github.com/ctrlpvim/ctrlp.vim
+
+" binding
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+nnoremap <leader>b :CtrlPBuffer<CR>
+
+" search dir
+let g:ctrlp_working_path_mode = 'ra'
+" a - dir of current file, unless it is a subdir of cwd
+" r - the nearest ancestor of current file that contains one of .git, .hg, etc
+
+" exclude files and dirs using wildignore and CtrlP's own ignore var
+if g:os == "Windows"
+    set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe
+else
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+endif
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+" file listing command
+if g:os == "Windows"
+    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'
+else
+    let g:ctrlp_user_command = 'find %s -type f'
+endif
+
+
 " }}}
 
 " Theme {{{
@@ -340,12 +371,22 @@ let g:lightline = {
     \ 'colorscheme':  'jellybeans',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
-    \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \           [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ]
     \ },
     \ 'component_function': {
-    \   'gitbranch': 'fugitive#head'
+    \   'gitbranch': 'fugitive#head',
+	\   'cocstatus': 'coc#status',
     \ },
     \ }
+
+    " \ 'colorscheme':  'jellybeans',
+    " \           [ 'gitbranch', 'readonly', 'filename', 'modified'] ]
+    " \   'gitbranch': 'fugitive#head',
+    " %{get(b:,'coc_current_function','')
+    " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " wild spaces
 set list listchars=tab:\ \ ,trail:·
