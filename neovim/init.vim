@@ -61,6 +61,8 @@ Plug 'itchyny/lightline.vim'
 call plug#end()
 " }}}
 
+set nocompatible
+filetype plugin on
 
 set smartindent
 set smartcase
@@ -70,6 +72,7 @@ set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 set mouse=a
 set incsearch ignorecase smartcase
 set autoread
+set scrolloff=7
 set clipboard+=unnamedplus
 set encoding=utf-8
 
@@ -171,6 +174,13 @@ tnoremap <Esc> <C-\><C-n>
 " Start on insert mode when entering terminal
 " autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
 autocmd! TermEnter :startinsert
+
+" html
+autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
+
+" Markdown
+" TODO: try plugin free
+" autocmd FileType md setlocal textwidth=73
 " }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""" }}}
