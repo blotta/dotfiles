@@ -1,1 +1,3 @@
-*.retry
+neovim/pack/plugins/start/*
+.netrwhist
+!.gitkeep

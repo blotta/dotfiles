@@ -45,6 +45,7 @@ au VimEnter * call AdjustFont()
 " --'tpope/vim-sensible'
 " --'itchyny/lightline.vim'
 " 'lokaltog/vim-distinguished'
+" git clone git://github.com/chriskempson/base16-vim.git base16
 " }}}
 
 set nocompatible
@@ -198,6 +199,7 @@ set noshowmode
 " set background so themes play nice
 set background=dark
 " colorscheme desert
-colorscheme distinguished
+" colorscheme distinguished
+colorscheme base16-default-dark
 
 " }}}
