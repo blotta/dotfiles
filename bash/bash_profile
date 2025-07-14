@@ -1,24 +1,5 @@
-if [ -f "$HOME/.profile" ]; then
-    source "$HOME/.profile"
-fi
+#
+# ~/.bash_profile
+#
 
-if [ -f "$HOME/.bashrc" ]; then
-    source "$HOME/.bashrc"
-fi
-
-
-# Host specific init (no X related tasks, since it's not started yet)
-mkdir -p $HOME/hostscripts
-
-for s in $( find $HOME/hostscripts/ -maxdepth 1 -type f ) ; do
-	$s
-done
-
-
-
-# Automatically start the X session when logged in
-if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && -e "$HOME/.xinitrc" ]]; then
-    echo "starting X"
-    exec startx ~/.xinitrc i3
-fi
-# Nothing gets executed after exec
+[[ -f ~/.bashrc ]] && . ~/.bashrc

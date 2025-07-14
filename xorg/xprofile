@@ -1,0 +1,6 @@
+
+# keyboard for thinkpad
+setxkbmap -layout br -variant abnt2 -model thinkpad
+
+# fast repeat rate
+xset r rate 200 60
