@@ -15,4 +15,4 @@ vim.diagnostic.config({
 	severity_sort = true,  -- Sort by severity
 })
 
-vim.o.guifont = "Fira Code:h12"
+vim.o.guifont = "Fira Code:h10"
