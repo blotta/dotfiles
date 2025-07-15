@@ -1,0 +1,26 @@
+return {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+	local config = require("nvim-treesitter.configs")
+	config.setup({
+	    highlight = { enable = true },
+	    indent = { enable = true },
+	    autotage = { enable = true },
+	    ensure_installed = {
+		"lua",
+		"vim",
+		"vimdoc",
+		"c",
+		"cpp",
+		"query",
+		"markdown",
+		"typescript",
+		"v",
+		"ruby",
+		"d"
+	    },
+	    auto_install = false,
+	})
+    end
+}
