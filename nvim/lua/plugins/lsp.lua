@@ -23,7 +23,6 @@ local default_on_attach = function(_, bufnr)
 	nmap("<leader><F8>", function()
 		vim.lsp.buf.format({ async = true })
 	end, "Format File")
-
 end
 
 

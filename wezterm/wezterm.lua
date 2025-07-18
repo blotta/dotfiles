@@ -33,6 +33,9 @@ else
 	config.default_prog = { '/bin/bash', '-l' }
 end
 
+-- Using ABNT2 layout with US keyboard, I map '<right alt>+]' to '\'
+-- config.send_composed_key_when_right_alt_is_pressed = true
+
 local launch_menu = {}
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
 	table.insert(launch_menu, {
