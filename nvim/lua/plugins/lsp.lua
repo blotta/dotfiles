@@ -18,11 +18,6 @@ local default_on_attach = function(_, bufnr)
 	-- nmap("[d", vim.diagnostic.goto_prev, "Previous Diagnostic")
 	-- nmap("]d", vim.diagnostic.goto_next, "Next Diagnostic")
 	nmap("<leader>q", vim.diagnostic.setloclist, "Diagnostics to Loclist")
-
-	-- Format
-	nmap("<leader><F8>", function()
-		vim.lsp.buf.format({ async = true })
-	end, "Format File")
 end
 
 
@@ -56,6 +51,11 @@ return {
 					linters = { 'standard' },
 				}
 			})
+
+			-- Format
+			vim.keymap.set("n", "<leader><F8>", function()
+				vim.lsp.buf.format({ async = true })
+			end, { desc = "Format File" })
 		end
 	}
 
