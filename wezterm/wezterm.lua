@@ -11,6 +11,7 @@ config.initial_cols = 120
 config.initial_rows = 28
 
 -- or, changing the font size and color scheme.
+config.font = wezterm.font 'FiraCode Nerd Font'
 config.font_size = 10
 -- config.color_scheme = 'Afterglow'
 config.color_scheme = 'Ashes (base16)'
@@ -19,7 +20,7 @@ config.enable_scroll_bar = true
 config.window_padding = {
 	left = 0,
 	right = 5,
-	top = 0,
+	top = 2,
 	bottom = 0,
 }
 if wezterm.target_triple:find('windows') then
@@ -34,7 +35,25 @@ else
 end
 
 -- Using ABNT2 layout with US keyboard, I map '<right alt>+]' to '\'
+-- config.use_ime = false
+-- config.send_composed_key_when_left_alt_is_pressed = false
 -- config.send_composed_key_when_right_alt_is_pressed = true
+-- config.use_dead_keys = false
+config.debug_key_events =true
+-- config.treat_left_ctrlalt_as_altgr = true
+config.keys = {
+	{
+		key = "]",
+		mods = "ALT",
+		action = wezterm.action.SendString("\\"),
+	},
+	{
+		key = "]",
+		mods = "CTRL|ALT",
+		action = wezterm.action.SendString('|'),
+	}
+}
+
 
 local launch_menu = {}
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
