@@ -2,7 +2,7 @@
 
 vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader>cd", vim.cmd.Ex)
-vim.keymap.set("n", "<leader>cd", vim.cmd.NvimTreeToggle)
+-- vim.keymap.set("n", "<leader>cd", vim.cmd.NvimTreeToggle)
 
 vim.keymap.set('n', '<F2>', ':w<CR>', {noremap = true, silent = true, desc = "Save buffer" })
 vim.keymap.set('i', '<F2>', '<Esc>:w<CR>a', {noremap = true, silent = true, desc = "Save buffer" })
