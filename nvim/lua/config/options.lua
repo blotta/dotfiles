@@ -27,12 +27,12 @@ vim.opt.scrolloff = 10
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
-vim.diagnostic.config({
-	virtual_text = true,   -- Show inline diagnostics
-	signs = true,          -- Show signs in the gutter
-	underline = true,      -- Underline the problematic code
-	update_in_insert = false, -- Don't update diagnostics while typing
-	severity_sort = true,  -- Sort by severity
-})
+-- vim.diagnostic.config({
+-- 	virtual_text = true,   -- Show inline diagnostics
+-- 	signs = true,          -- Show signs in the gutter
+-- 	underline = true,      -- Underline the problematic code
+-- 	update_in_insert = false, -- Don't update diagnostics while typing
+-- 	severity_sort = true,  -- Sort by severity
+-- })
 
 vim.o.guifont = "Fira Code:h10"
