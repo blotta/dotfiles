@@ -213,10 +213,11 @@ return {
 
 			local servers = {
 				clangd = {},
-				-- ruby_lsp = {}, -- errors
+				ruby_lsp = {}, -- errors
 				v_analyzer = {},
 				serve_d = {},
 				pyright = {},
+				emmet_language_server = {},
 				-- gopls = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs

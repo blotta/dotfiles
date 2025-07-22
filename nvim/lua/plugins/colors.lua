@@ -18,7 +18,9 @@ return {
 			"nvim-tree/nvim-web-devicons",
 		},
 		opts = {
-			theme = "nordic"
+			options = {
+				theme = "codedark"
+			}
 		}
 	}
 }
